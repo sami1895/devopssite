@@ -18,26 +18,6 @@ pipeline {
               """
             }
         }
-        stage('Create Cluster') {
-            steps {
-                  sh """
-                  minikube start create cluster comingsoon-cluster --nodes=2
-                  """
-                }
-            }
-        stage('Create Namespace') {
-            steps {
-                  sh "kubectl create namespace jenkins"
-                }
-            }
-        stage('Deploy') {
-            steps {
-                  sh """
-                  cd comingsoon/k8s
-                  kubectl -n comingsoon apply -f deployment.yaml
-                  kubectl -n comingsoon apply -f services.yaml
-                  """
-                }
-            }
+        
         }
     }
