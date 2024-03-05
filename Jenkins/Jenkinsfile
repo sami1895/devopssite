@@ -14,9 +14,7 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sami1895/devopssite.git']]])
                 sh 'mvn clean install'
             }
-        }
-    }	    
-    stages {
+        }    
         stage('Docker Login') {
             steps {
               sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
