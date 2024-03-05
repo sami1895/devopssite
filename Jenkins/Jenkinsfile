@@ -12,7 +12,8 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sami1895/devopssite.git']]])
                 sh 'mvn clean install'
             }
-        }	    
+        }
+    }	    
     stages {
         stage('Docker Login') {
             steps {
@@ -28,6 +29,6 @@ pipeline {
             }
         }
     }
-  }
+  
 }
     
