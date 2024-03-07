@@ -42,10 +42,15 @@ pipeline {
                         password: env.REMOTE_PASSWORD,
                         allowAnyHosts: true
                     ]
+             stage('Put-deployment.yml onto k8smaster') {
+              steps {
+                  sshPut remote: remote, from: 'comingsoon/k8s/deployment.yaml', into: '.'    
+                
                 }
             }
         }
-   
+            }
+        }
     }      
 }	
 
