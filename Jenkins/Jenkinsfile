@@ -42,8 +42,6 @@ pipeline {
                         password: env.REMOTE_PASSWORD,
                         allowAnyHosts: true
                     ]
-                    sshPut remote: remote, from: 'deployment.yaml', into: '.'
-                    sshPut remote: remote, from: 'services.yaml', into: '.'
                 }
             }
         }
