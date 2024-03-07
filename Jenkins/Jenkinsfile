@@ -48,7 +48,7 @@ pipeline {
 
         stage('Put-deployment.yml onto k8smaster') {
               steps{
-                  sshPut remote: remote, from: 'comingsoon/k8s/deployment.yaml', into: '.'
+                  sshPut remote: remote, from: 'deployment.yaml', into: '.'
         }
       }      
     }      
