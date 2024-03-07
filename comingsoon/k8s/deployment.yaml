@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: comingsoon-page
-        image: imas10/devopssite:latest
+        image: imas10/devopssite
         ports:
         - containerPort: 80
