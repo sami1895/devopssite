@@ -43,7 +43,6 @@ pipeline {
                         allowAnyHosts: true
                     ]
                     
-	            sshPut remote: remote, from: '/var/lib/jenkins/workspace/devopssite/deployment.yaml', into: '.'
                 }
             }
         }
