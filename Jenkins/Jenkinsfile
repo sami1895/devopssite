@@ -42,15 +42,11 @@ pipeline {
                         password: env.REMOTE_PASSWORD,
                         allowAnyHosts: true
                     ]
-                    
+                    sshPut remote: remote, from: 'deployment.yaml', into: '.'
+                    sshPut remote: remote, from: 'services.yaml', into: '.'
                 }
             }
         }
-        stage('Put k8s-spring-boot-deployment.yml onto k8smaster') {
-		sshPut remote: remote, from: '/var/lib/jenkins/workspace/devopssite/deployment.yaml', into: '.'
-	}
-    
     }      
 }	    
-
     
