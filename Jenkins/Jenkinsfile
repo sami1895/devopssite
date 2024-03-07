@@ -41,7 +41,7 @@ pipeline {
                         user: env.REMOTE_USER,
                         password: env.REMOTE_PASSWORD,
                         allowAnyHosts: true
-                    ]
+                    
                 }
             }
         }
