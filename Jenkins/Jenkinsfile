@@ -45,5 +45,9 @@ pipeline {
                 }
             }
         }
+
+        stage('Put k8s-spring-boot-deployment.yml onto k8smaster') {
+            sshPut remote: remote, from: 'deployment.yaml', into: '.'
+        } 
     }      
 }	    
