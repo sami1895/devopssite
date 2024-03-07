@@ -41,12 +41,14 @@ pipeline {
                         user: env.REMOTE_USER,
                         password: env.REMOTE_PASSWORD,
                         allowAnyHosts: true
-                    ]
-                    sshPut remote: remote, from: 'deployment.yaml', into: '.'
-                    sshPut remote: remote, from: 'services.yaml', into: '.'
-                }
-            }
+           stage('Put devops-site deployment.yml onto k8smaster') {
+            steps {
+                script {
+                        sshPut remote: remote, from: 'deployment.yaml', into: '.'
+                        sshPut remote: remote, from: 'services.yaml', into: '.'
         }
+    }
+}
     }      
 }	    
     
