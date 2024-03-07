@@ -45,12 +45,9 @@ pipeline {
     }
 }                  
            stage('Put devops-site deployment.yml onto k8smaster') {
-               steps {
                         sshPut remote: remote, from: 'deployment.yaml', into: '.'
                         sshPut remote: remote, from: 'services.yaml', into: '.'
         }
-    }
-
     }      
 }	    
     
