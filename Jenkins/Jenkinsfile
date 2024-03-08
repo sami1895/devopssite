@@ -28,7 +28,7 @@ pipeline {
             steps {
                 sh """
                 cd comingsoon/
-                ansible-playbook ansible playbook.yml
+                ansible-playbook playbook.yml
                 """
             }
         }
