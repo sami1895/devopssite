@@ -35,11 +35,11 @@ pipeline {
         }
         stage("SSH Into k8s Server") {
         def remote = [
-        remote.name = 'K8S master'
-        remote.host = '192.168.50.3'
-        remote.user = 'vagrant'
-        remote.password = 'vagrant'
-        remote.allowAnyHosts = true
+        name: 'K8S master'
+        host: '192.168.50.3'
+        user: 'vagrant'
+        password: 'vagrant'
+        allowAnyHosts: true
             ]
 } 
              stage('Put-deployment.yml onto k8smaster') {
