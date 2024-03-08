@@ -6,6 +6,7 @@ pipeline {
         REMOTE_HOST = '192.168.50.3'
         REMOTE_USER = 'vagrant'
         REMOTE_PASSWORD = 'vagrant'
+        debug: true
     }
 
     tools {
