@@ -34,7 +34,8 @@ pipeline {
         }
         stage("SSH Into k8s Server") {
     steps {
-        script {
+        steps {
+           script {
             def remote = [
                 name: 'master',
                 host: env.REMOTE_HOST,
@@ -48,6 +49,6 @@ pipeline {
         }
     }
 }
-       
+        }      
     }      
 }	
