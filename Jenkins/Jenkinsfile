@@ -44,7 +44,7 @@ pipeline {
                 sshStrictHostKeyChecking: false, // Disable strict host key checking
                 debug: true // Enable SSH debugging
             ]
-            sshPut remote: remote, from: '/var/lib/jenkins/workspace/devopssite/comingsoon/k8s/deployment.yaml', into: '.'
+            sshPut remote: remote, from: 'comingsoon/k8s/deployment.yaml', into: '.'
         }
     }
 }
