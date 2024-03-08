@@ -42,7 +42,6 @@ pipeline {
                 user: env.REMOTE_USER,
                 password: env.REMOTE_PASSWORD,
                 allowAnyHosts: true,
-                sshStrictHostKeyChecking: false, // Disable strict host key checking
                 debug: true // Enable SSH debugging
             ]
             sshPut remote: remote, from: 'comingsoon/k8s/deployment.yaml', into: '.'
