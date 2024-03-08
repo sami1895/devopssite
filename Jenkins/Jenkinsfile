@@ -27,7 +27,7 @@ pipeline {
         stage('Build & push Dockerfile') {
             steps {
                 sh """
-                cd comingsoon
+                
                 ansible-playbook playbook.yml
                 """
             }
