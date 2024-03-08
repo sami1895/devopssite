@@ -34,15 +34,13 @@ pipeline {
             }
         }
         stage("SSH Into k8s Server") {
-            steps {
-                script {
-                    def remote = [
-                        name: 'master',
-                        host: env.REMOTE_HOST,
-                        user: env.REMOTE_USER,
-                        password: env.REMOTE_PASSWORD,
-                        allowAnyHosts: true,
-                    ]
+        def remote = [:]
+        remote.name = 'K8S master'
+        remote.host = '100.0.0.2'
+        remote.user = 'vagrant'
+        remote.password = 'vagrant'
+        remote.allowAnyHosts = true
+} 
              stage('Put-deployment.yml onto k8smaster') {
                   sshPut remote: remote, from: 'comingsoon/k8s/deployment.yaml', into: '.'  
              stage('Deploy devops site') {
