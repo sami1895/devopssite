@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        REMOTE_HOST = '192.168.50.3'
+        
         REMOTE_USER = 'vagrant'
         REMOTE_PASSWORD = 'vagrant'
         
@@ -36,7 +36,7 @@ pipeline {
         stage("SSH Into k8s Server") {
         def remote = [:]
         remote.name = 'K8S master'
-        remote.host = '100.0.0.2'
+        remote.host = '192.168.50.3'
         remote.user = 'vagrant'
         remote.password = 'vagrant'
         remote.allowAnyHosts = true
