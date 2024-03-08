@@ -3,10 +3,9 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        
+        REMOTE_HOST = '192.168.50.3'
         REMOTE_USER = 'vagrant'
         REMOTE_PASSWORD = 'vagrant'
-        
     }
 
     tools {
@@ -34,16 +33,17 @@ pipeline {
             }
         }
         stage("SSH Into k8s Server") {
-        def remote = [
-        name: 'master'
-        host: '192.168.50.3'
-        user: 'vagrant'
-        password: 'vagrant'
-        allowAnyHosts: true
-            ]
-} 
+            steps {
+                script {
+                    def remote = [
+                        name: 'master',
+                        host: env.REMOTE_HOST,
+                        user: env.REMOTE_USER,
+                        password: env.REMOTE_PASSWORD,
+                        allowAnyHosts: true
+                    ]
              stage('Put-deployment.yml onto k8smaster') {
-                  sshPut remote: remote, from: 'comingsoon/k8s/deployment.yaml', into: '.'  
+                  sshPut remote: remote, from: 'comingsoon/k8s/deployment.yaml', into: '.'    
              stage('Deploy devops site') {
                   sshCommand remote: remote, command: "kubectl apply -f deployment.yaml"
         }   
