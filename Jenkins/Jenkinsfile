@@ -6,7 +6,7 @@ pipeline {
         REMOTE_HOST = '192.168.50.3'
         REMOTE_USER = 'vagrant'
         REMOTE_PASSWORD = 'vagrant'
-        debug: true
+        
     }
 
     tools {
@@ -41,7 +41,7 @@ pipeline {
                         host: env.REMOTE_HOST,
                         user: env.REMOTE_USER,
                         password: env.REMOTE_PASSWORD,
-                        allowAnyHosts: true
+                        allowAnyHosts: true,
                     ]
              stage('Put-deployment.yml onto k8smaster') {
                   sshPut remote: remote, from: 'comingsoon/k8s/deployment.yaml', into: '.'  
