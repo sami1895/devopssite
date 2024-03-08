@@ -33,21 +33,23 @@ pipeline {
             }
         }
         stage("SSH Into k8s Server") {
-    steps {
-        steps {
-           script {
-            def remote = [
-                name: 'master',
-                host: env.REMOTE_HOST,
-                user: env.REMOTE_USER,
-                password: env.REMOTE_PASSWORD,
-                allowAnyHosts: true,
-                debug: true // Enable SSH debugging
-            ]
-            sshPut remote: remote, from: 'comingsoon/k8s/deployment.yaml', into: '.'
+            steps {
+                script {
+                    def remote = [
+                        name: 'master',
+                        host: env.REMOTE_HOST,
+                        user: env.REMOTE_USER,
+                        password: env.REMOTE_PASSWORD,
+                        allowAnyHosts: true
+                    ]
+             stage('Put-deployment.yml onto k8smaster') {
+                  sshPut remote: remote, from: 'comingsoon/k8s/deployment.yaml', into: '.'    
+             stage('Deploy devops site') {
+                  sshCommand remote: remote, command: "kubectl apply -f deployment.yaml"
+        }   
+                }
+            }
         }
-    }
-}
-        }      
+            }
     }      
 }	
