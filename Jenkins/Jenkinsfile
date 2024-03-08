@@ -15,26 +15,20 @@ pipeline {
 
     stages {
         stage('Build Maven') {
-            steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sami1895/devopssite.git']]])
                 sh 'mvn -v'
-            }
         }    
         stage('Docker Login') {
-            steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
         }    
         stage('Build & push Dockerfile') {
-            steps {
+        
                 sh """
                 cd comingsoon/
                 ansible-playbook playbook.yml
                 """
-            }
         }
         stage("SSH Into k8s Server") {
-            steps {
                 script {
                     def remote = [
                         name: 'master',
@@ -50,7 +44,7 @@ pipeline {
         }   
                 }
             }
-        }
+    
             }
     }      
 }	
