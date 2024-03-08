@@ -1,22 +1,47 @@
-node {
+pipeline {
+    agent any
 
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        REMOTE_HOST = '192.168.50.3'
+        REMOTE_USER = 'vagrant'
+        REMOTE_PASSWORD = 'vagrant'
+    }
+
+    tools {
+        maven 'maven_3_5_0'
+    }
+
+    stages {
+        stage('Build Maven') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sami1895/devopssite.git']]])
+                sh 'mvn -v'
+            }
+        }    
         stage('Docker Login') {
+            steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }   
+            }
+        }    
         stage('Build & push Dockerfile') {
+            steps {
                 sh """
                 cd comingsoon/
                 ansible-playbook playbook.yml
                 """
             }
-         stage("SSH Into k8s Server") {
-        def remote = [
-        name = 'master'
-        host = '192.168.50.3'
-        user = 'vagrant'
-        password = 'vagrant'
-        allowAnyHosts = true
-                ]
+        }
+        stage("SSH Into k8s Server") {
+            steps {
+                script {
+                    def remote = [
+                        name: 'master',
+                        host: env.REMOTE_HOST,
+                        user: env.REMOTE_USER,
+                        password: env.REMOTE_PASSWORD,
+                        allowAnyHosts: true
+                    ]
              stage('Put-deployment.yml onto k8smaster') {
                   sshPut remote: remote, from: 'comingsoon/k8s/deployment.yaml', into: '.'    
              stage('Deploy devops site') {
@@ -24,6 +49,7 @@ node {
         }   
                 }
             }
-            
+        }
+            }
     }      
 }	
